@@ -14,6 +14,8 @@
 		55CCAFBF240D537D00AE7345 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CCAFBE240D537D00AE7345 /* Assets.xcassets */; };
 		55CCAFC2240D537D00AE7345 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55CCAFC0240D537D00AE7345 /* LaunchScreen.storyboard */; };
 		55CCAFCB240D55A400AE7345 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCAFCA240D55A400AE7345 /* NetworkLayer.swift */; };
+		55D8953E2413DFA80079126B /* GCDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8953D2413DFA80079126B /* GCDViewModel.swift */; };
+		55D895402413F0890079126B /* OperationQueueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D8953F2413F0890079126B /* OperationQueueViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		55CCAFC1240D537D00AE7345 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55CCAFC3240D537D00AE7345 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55CCAFCA240D55A400AE7345 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		55D8953D2413DFA80079126B /* GCDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDViewModel.swift; sourceTree = "<group>"; };
+		55D8953F2413F0890079126B /* OperationQueueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationQueueViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +64,10 @@
 			children = (
 				55CCAFB5240D537C00AE7345 /* AppDelegate.swift */,
 				55CCAFB7240D537C00AE7345 /* SceneDelegate.swift */,
-				55CCAFCA240D55A400AE7345 /* NetworkLayer.swift */,
 				55CCAFB9240D537C00AE7345 /* ViewController.swift */,
+				55D8953F2413F0890079126B /* OperationQueueViewModel.swift */,
+				55D8953D2413DFA80079126B /* GCDViewModel.swift */,
+				55CCAFCA240D55A400AE7345 /* NetworkLayer.swift */,
 				55CCAFC9240D53EA00AE7345 /* resources */,
 				55CCAFC3240D537D00AE7345 /* Info.plist */,
 			);
@@ -149,9 +155,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55D8953E2413DFA80079126B /* GCDViewModel.swift in Sources */,
 				55CCAFCB240D55A400AE7345 /* NetworkLayer.swift in Sources */,
 				55CCAFBA240D537C00AE7345 /* ViewController.swift in Sources */,
 				55CCAFB6240D537C00AE7345 /* AppDelegate.swift in Sources */,
+				55D895402413F0890079126B /* OperationQueueViewModel.swift in Sources */,
 				55CCAFB8240D537C00AE7345 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
