@@ -25,7 +25,65 @@ struct URLStrings {
 	
 */
 
-class OperationQueueConcurrencyModel {
+class OperationQueueConcurrencyModel: NSObject {
+	
+	//MARK:- Approach 1: Operation with sync statements
+	
+	let operationQueue = OperationQueue()
+	var arithmeticModel: [(String, Int)] = [] // update arithemetic model based on arithmetic operations
+	
+	func solveConcurrencyOfSyncBlock() {
+		
+		let additionOperation = BlockOperation {
+			print("add")
+			//self.arithmeticModel.append(("+", 5+5))
+			//self.updateModel(input: ("+", 5+5))
+		}
+		additionOperation.completionBlock = {
+			print("addition block completed")
+		}
+		
+		let subtractionOperation = BlockOperation {
+			print("subtract")
+			//self.arithmeticModel.append(("-", 20-5))
+			//self.updateModel(input: ("-", 20-5))
+		}
+		//subtractionOperation.addObserver(self, forKeyPath: "finished", options: .new, context: nil)
+		
+		let multiplicationOperation = BlockOperation {
+			print("multiplication")
+			//self.arithmeticModel.append(("*", 4*5))
+			//self.updateModel(input: ("*", 4*5))
+		}
+		
+		let divisionOperation = BlockOperation {
+			print("division")
+			//self.arithmeticModel.append(("/", 50/2))
+			//self.updateModel(input: ("/", 50/2))
+		}
+		
+		// create an operation queue and add them with dependencies if needed
+		operationQueue.maxConcurrentOperationCount = 4
+		let operations = [multiplicationOperation, divisionOperation, additionOperation, subtractionOperation]
+		operationQueue.addOperations(operations, waitUntilFinished: false)
+	}
+	
+	private func updateModel(input: (String, Int)) {
+		DispatchQueue.main.async {
+			self.arithmeticModel.append(input)
+		}
+	}
+	
+	// Key-Value Observer
+	// https://gist.github.com/barbaramartina/94b51cef9782fd5e37133d50c96dc87b
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		
+		if keyPath == "finished" {
+			print("Subtraction operation is completed")
+		}
+	}
+
+	//MARK:- Approach 2: Operation with Async statements
 	
 	// solution 1: using Operations and OperationQueue
 	func solveConcurrencyWithOperationQueue() {

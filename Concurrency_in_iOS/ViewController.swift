@@ -13,9 +13,13 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// approach - 1
 		let concurrentModel = OperationQueueConcurrencyModel()
-		concurrentModel.solveConcurrencyWithOperationQueue()
+		// Sync
+		concurrentModel.solveConcurrencyOfSyncBlock()
+		
+		// Async
+		// approach - 1
+		//concurrentModel.solveConcurrencyWithOperationQueue()
 		
 		// approach - 2
 		//let gcdConcurrentModel = GCDConcurrencyModel()
