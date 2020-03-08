@@ -30,38 +30,24 @@ class OperationQueueConcurrencyModel {
 	// solution 1: using Operations and OperationQueue
 	func solveConcurrencyWithOperationQueue() {
 		
-		
+		let operationQueue = OperationQueue()
+		operationQueue.maxConcurrentOperationCount = 2
 		let dispatchGroup = DispatchGroup()
 		
 		// step1: create operations
-		let googleOperation = BlockOperation {
+		let gitHubOperation = BlockOperation {
 			dispatchGroup.enter()
 			
-			NetworkLayer.get(urlString: URLStrings.google, successBlock: { (data) in
-				print("⚽️ Operatoin: Google Call Success")
+			NetworkLayer.get(urlString: URLStrings.github, successBlock: { (data) in
+				print("⚽️ Operation: GitHub Call Success")
 				dispatchGroup.leave()
 				
 			}) { (error) in
-				print("Google call failed")
+				print("GitHub call failed")
 				dispatchGroup.leave()
 			}
-		}
-		googleOperation.completionBlock = {
-			print("Google sync block has been executed \n")
 		}
 		
-		let appleOperation = BlockOperation {
-			dispatchGroup.enter()
-			
-			NetworkLayer.get(urlString: URLStrings.apple, successBlock: { (data) in
-				print("⚽️ Operation: Apple Call Success")
-				dispatchGroup.leave()
-				
-			}) { (error) in
-				print("Apple call failed")
-				dispatchGroup.leave()
-			}
-		}
 		
 		let microsoftOperation = BlockOperation {
 			dispatchGroup.enter()
@@ -89,36 +75,47 @@ class OperationQueueConcurrencyModel {
 			}
 		}
 		
-		let gitHubOperation = BlockOperation {
+		let appleOperation = BlockOperation {
 			dispatchGroup.enter()
 			
-			NetworkLayer.get(urlString: URLStrings.github, successBlock: { (data) in
-				print("⚽️ Operation: GitHub Call Success")
+			NetworkLayer.get(urlString: URLStrings.apple, successBlock: { (data) in
+				print("⚽️ Operation: Apple Call Success")
 				dispatchGroup.leave()
 				
 			}) { (error) in
-				print("GitHub call failed")
+				print("Apple call failed")
 				dispatchGroup.leave()
 			}
 		}
 		
-		let updateModel = BlockOperation {
-			print("updating model")
-			// perform some data source update
+		
+		let googleOperation = BlockOperation {
+			dispatchGroup.enter()
+			
+			NetworkLayer.get(urlString: URLStrings.google, successBlock: { (data) in
+				print("⚽️ Operatoin: Google Call Success")
+				dispatchGroup.leave()
+				
+			}) { (error) in
+				print("Google call failed")
+				dispatchGroup.leave()
+			}
 		}
+		googleOperation.completionBlock = {
+			print("Google sync block has been executed \n")
+		}
+		
 		
 		// step 2: add dependencies
 		appleOperation.addDependency(googleOperation)
-		
 		microsoftOperation.addDependency(appleOperation)
 		linkedInOperation.addDependency(appleOperation)
 		[microsoftOperation, linkedInOperation].forEach { gitHubOperation.addDependency($0) }
 		
-		// step 3: create operation Queue
-		let operationQueue = OperationQueue()
-		operationQueue.maxConcurrentOperationCount = 2
+		//operationQueue.addOperation(googleOperation)
 		
-		let operations = [googleOperation, appleOperation, microsoftOperation, linkedInOperation, gitHubOperation, updateModel]
+		// step 3: create operation Queue
+		let operations = [googleOperation, appleOperation, microsoftOperation, linkedInOperation, gitHubOperation]
 		operationQueue.addOperations(operations, waitUntilFinished: false)
 		
 		// step 4: we want to do some operation at the end of completion: Dispatch Group will help here
