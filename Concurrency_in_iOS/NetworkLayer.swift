@@ -26,7 +26,6 @@ class NetworkLayer {
 		
 		guard !urlString.isEmpty, let url = URL(string: urlString)
 			else {
-				failureBlock?(nil)
 				return
 		}
 	

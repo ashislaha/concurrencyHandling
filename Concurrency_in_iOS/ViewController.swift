@@ -15,11 +15,11 @@ class ViewController: UIViewController {
 		
 		let concurrentModel = OperationQueueConcurrencyModel()
 		// Sync
-		concurrentModel.solveConcurrencyOfSyncBlock()
+		//concurrentModel.solveConcurrencyOfSyncBlock()
 		
 		// Async
 		// approach - 1
-		//concurrentModel.solveConcurrencyWithOperationQueue()
+		concurrentModel.solveConcurrencyWithOperationQueue()
 		
 		// approach - 2
 		//let gcdConcurrentModel = GCDConcurrencyModel()
